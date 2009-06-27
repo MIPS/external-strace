@@ -19,6 +19,7 @@ LOCAL_SHARED_LIBRARIES :=
 
 LOCAL_C_INCLUDES := \
 	$(KERNEL_HEADERS) \
+	$(LOCAL_PATH)/strace/linux/$(TARGET_ARCH) \
 	$(LOCAL_PATH)/linux \
 	$(LOCAL_PATH)/android/arch/$(TARGET_ARCH)
 
