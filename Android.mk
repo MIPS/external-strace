@@ -30,6 +30,7 @@ endif
 LOCAL_C_INCLUDES := \
 	$(STRACE_ARM_HEADERS) \
 	$(KERNEL_HEADERS) \
+	$(LOCAL_PATH)/strace/linux/$(TARGET_ARCH) \
 	$(LOCAL_PATH)/linux \
 	$(LOCAL_PATH)/android/arch/$(TARGET_ARCH)
 
