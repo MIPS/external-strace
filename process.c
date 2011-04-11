@@ -126,6 +126,12 @@
 # ifndef FUTEX_REQUEUE
 #  define FUTEX_REQUEUE 3
 # endif
+# ifndef FUTEX_PRIVATE_FLAG
+#  define FUTEX_PRIVATE_FLAG 128
+# endif
+# ifndef FUTEX_CLOCK_REALTIME
+#  define FUTEX_CLOCK_REALTIME 256
+# endif
 #endif
 
 #ifdef LINUX
@@ -3072,6 +3078,8 @@ struct tcb *tcp;
 static const struct xlat futexops[] = {
 	{ FUTEX_WAIT,	"FUTEX_WAIT" },
 	{ FUTEX_WAKE,	"FUTEX_WAKE" },
+	{ FUTEX_PRIVATE_FLAG|FUTEX_WAIT, "FUTEX_WAIT_PRIVATE" },
+	{ FUTEX_PRIVATE_FLAG|FUTEX_WAKE, "FUTEX_WAKE_PRIVATE" },
 	{ FUTEX_FD,	"FUTEX_FD" },
 	{ FUTEX_REQUEUE,"FUTEX_REQUEUE" },
 	{ 0,		NULL }
