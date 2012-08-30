@@ -1168,27 +1168,23 @@ struct tcb *tcp;
 			}
 #endif /* !USE_PROCFS */
 			tprintf("{%#lx, ", (long) sa.SA_HANDLER);
-#ifndef LINUX
-			printsigmask (&sa.sa_mask, 0);
-#else
-			long_to_sigset(sa.sa_mask, &sigset);
-			printsigmask(&sigset, 0);
-#endif
-			tprintf(", ");
-			printflags(sigact_flags, sa.sa_flags, "SA_???");
-#ifdef SA_RESTORER
-			if (sa.sa_flags & SA_RESTORER)
-				tprintf(", %p", sa.sa_restorer);
-#endif
-			tprintf("}");
 		}
+#ifndef LINUX
+		printsigmask (&sa.sa_mask, 0);
+#else
+		long_to_sigset(sa.sa_mask, &sigset);
+		printsigmask(&sigset, 0);
+#endif
+		tprintf(", ");
+		printflags(sigact_flags, sa.sa_flags, "SA_???");
+#ifdef SA_RESTORER
+		if (sa.sa_flags & SA_RESTORER)
+			tprintf(", %p", sa.sa_restorer);
+#endif
+		tprintf("}");
 	}
 	if (entering(tcp))
 		tprintf(", ");
-#ifdef LINUX
-	else
-		tprintf(", %#lx", (unsigned long) sa.sa_restorer);
-#endif
 	return 0;
 }
 
