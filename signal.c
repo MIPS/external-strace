@@ -1099,7 +1099,7 @@ struct tcb *tcp;
 
 #ifdef HAVE_SIGACTION
 
-#ifdef LINUX
+#if defined(LINUX) && !defined(MIPS)
 struct old_sigaction {
 	__sighandler_t __sa_handler;
 	unsigned long sa_mask;
@@ -1118,7 +1118,7 @@ sys_sigaction(tcp)
 struct tcb *tcp;
 {
 	long addr;
-#ifdef LINUX
+#if defined(LINUX) && !defined(MIPS)
 	sigset_t sigset;
 	struct old_sigaction sa;
 #else
@@ -1169,17 +1169,19 @@ struct tcb *tcp;
 #endif /* !USE_PROCFS */
 			tprintf("{%#lx, ", (long) sa.SA_HANDLER);
 		}
-#ifndef LINUX
-		printsigmask (&sa.sa_mask, 0);
-#else
+#if defined(LINUX) && !defined(MIPS)
 		long_to_sigset(sa.sa_mask, &sigset);
 		printsigmask(&sigset, 0);
+#else
+		printsigmask (&sa.sa_mask, 0);
 #endif
 		tprintf(", ");
 		printflags(sigact_flags, sa.sa_flags, "SA_???");
 #ifdef SA_RESTORER
+#if !(defined(LINUX) && defined(MIPS))
 		if (sa.sa_flags & SA_RESTORER)
 			tprintf(", %p", sa.sa_restorer);
+#endif
 #endif
 		tprintf("}");
 	}
