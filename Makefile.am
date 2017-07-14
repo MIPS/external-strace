@@ -172,6 +172,7 @@ strace_SOURCES =	\
 	msghdr.h	\
 	mtd.c		\
 	native_defs.h	\
+	negated_errno.h	\
 	net.c		\
 	netlink.c       \
 	netlink.h	\
